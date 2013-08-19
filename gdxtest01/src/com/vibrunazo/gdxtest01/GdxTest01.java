@@ -2,6 +2,8 @@ package com.vibrunazo.gdxtest01;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +17,11 @@ public class GdxTest01 implements ApplicationListener {
 	private SpriteBatch batch;
 	private Texture texture;
 	private Sprite sprite;
+	
+	Texture dropImage;
+	Texture bucketImage;
+	Sound dropSound;
+	Music rainMusic;
 	
 	@Override
 	public void create() {		
@@ -33,6 +40,20 @@ public class GdxTest01 implements ApplicationListener {
 		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		
+		
+		//
+		// load the images for the droplet and the bucket, 64x64 pixels each
+		dropImage = new Texture(Gdx.files.internal("droplet.png"));
+		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+
+		// load the drop sound effect and the rain background "music"
+		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+
+		// start the playback of the background music immediately
+		rainMusic.setLooping(true);
+		rainMusic.play();
 	}
 
 	@Override
